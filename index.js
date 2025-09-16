@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { Client, GatewayIntentBits, Events } = require("discord.js");
+const express = require("express"); // ✅ add express
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds],
@@ -18,3 +19,14 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
+const app = express();
+
+app.get("/", (req, res) => {
+    res.send("Bot is running fine 🚀");
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🌍 Web server running on port ${PORT}`);
+});
